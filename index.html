@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pearl & Teak Studio — Luxury interior design rooted in East African heritage. Nairobi, Kenya.">
+  <meta name="theme-color" content="#2C3A2E">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Pearl & Teak Studio">
+  <meta property="og:description" content="Interiors of quiet distinction. Nairobi, Kenya.">
+  <meta property="og:type" content="website">
+
+  <title>Pearl &amp; Teak Studio</title>
+
+  <!-- Preconnect fonts for faster DNS resolution -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Load fonts non-blocking: media trick defers until after render -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap"></noscript>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       PEARL & TEAK STUDIO — Portfolio
+       Brand: Aman × Colin King × quiet luxury
+       Mobile-first. Zero framework. Hand-crafted CSS only.
+       ═══════════════════════════════════════════════════════ */
+
+    :root {
+      --forest:    #2C3A2E;
+      --stone:     #B5A99A;
+      --gold:      #9B8C6A;
+      --cream:     #F5F0E8;
+      --parchment: #F2EDE5;
+      --obsidian:  #1A1A18;
+      --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans:  'Jost', 'Gill Sans MT', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; font-size: 16px; }
+
+    body {
+      background: var(--cream);
+      color: var(--obsidian);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { border: none; background: none; font-family: inherit; }
+
+    @media (pointer: fine) {
+      body { cursor: none; }
+      button { cursor: none; }
+    }
+
+    /* ── NOISE GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--forest);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%,-50%);
+      transition: width .35s var(--ease), height .35s var(--ease), background .3s ease, border .3s ease;
+      will-change: transform;
+    }
+    .cursor.hover { width: 44px; height: 44px; background: transparent; border: 1px solid var(--forest); }
+    .cursor.dark   { background: var(--cream); border-color: var(--cream); }
+    @media (pointer: coarse) { .cursor { display: none; } }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.75rem 2rem;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: .9rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: 0 1px 8px rgba(26,26,24,.35);
+      transition: color .3s ease;
+    }
+    .logo .amp { color: var(--gold); font-style: italic; }
+    .site-header.light .logo { color: var(--forest); text-shadow: none; }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: .65rem .75rem;
+      z-index: 600;
+      position: relative;
+      border-radius: 2px;
+      background: rgba(245,240,232,0.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(245,240,232,0.2);
+      transition: background .3s ease, border-color .3s ease;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--cream);
+      border-radius: 1px;
+      transition: transform .45s var(--ease), opacity .3s ease, background .3s ease;
+      transform-origin: center;
+    }
+    .site-header.light .hamburger {
+      background: rgba(44,58,46,0.07);
+      border-color: rgba(44,58,46,0.12);
+    }
+    .site-header.light .hamburger span { background: var(--obsidian); }
+    .hamburger.open { background: transparent; border-color: transparent; }
+    .hamburger.open span { background: var(--cream); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── NAV OVERLAY ── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--forest);
+      z-index: 490;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .55s var(--ease), visibility .55s;
+    }
+    .nav-overlay.open { opacity: 1; visibility: visible; }
+
+    .nav-links a {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 12vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--cream);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity .5s var(--ease), transform .5s var(--ease), color .2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-overlay.open .nav-links a { opacity: 1; transform: translateX(0); }
+    .nav-overlay.open .nav-links a:nth-child(1) { transition-delay: .06s; }
+    .nav-overlay.open .nav-links a:nth-child(2) { transition-delay: .12s; }
+    .nav-overlay.open .nav-links a:nth-child(3) { transition-delay: .18s; }
+    .nav-overlay.open .nav-links a:nth-child(4) { transition-delay: .24s; }
+    .nav-overlay.open .nav-links a:nth-child(5) { transition-delay: .30s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-bottom {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(181,169,154,.2);
+      padding-top: 1.5rem;
+    }
+    .nav-bottom p { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+    .nav-bottom a { color: var(--gold); transition: color .2s; }
+    .nav-bottom a:hover { color: var(--cream); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--obsidian);
+    }
+    /* Hero: rich layered gradient simulating a dark, warm interior space */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(44,58,46,.9) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(155,140,106,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(26,26,24,1) 0%, rgba(44,58,46,.6) 100%);
+    }
+    /* Simulated room texture lines */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          105deg,
+          transparent 0px,
+          transparent 180px,
+          rgba(181,169,154,.03) 180px,
+          rgba(181,169,154,.03) 181px
+        );
+    }
+
+    /* Floating accent circle */
+    .hero-orb {
+      position: absolute;
+      width: min(60vw, 500px);
+      height: min(60vw, 500px);
+      border-radius: 50%;
+      border: 1px solid rgba(155,140,106,.15);
+      top: 10%;
+      right: -10%;
+      opacity: 0;
+      animation: orbFade 2s 1s var(--ease) forwards;
+    }
+    .hero-orb::after {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(155,140,106,.08);
+    }
+    @keyframes orbFade { to { opacity: 1; } }
+
+    .hero-body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem 2rem 3.5rem;
+    }
+    .hero-eyebrow {
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up .8s .4s var(--ease) forwards;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 14vw, 10rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: .92;
+      letter-spacing: -.02em;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: up .9s .6s var(--ease) forwards;
+    }
+    .hero-title .line2 {
+      display: block;
+      padding-left: clamp(2rem, 8vw, 8rem);
+      font-style: italic;
+      color: var(--stone);
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up .8s .9s var(--ease) forwards;
+    }
+    .hero-cta span {
+      display: block;
+      width: 48px; height: 1px;
+      background: var(--gold);
+      transform-origin: left;
+      animation: expandH .8s 1.2s var(--ease) forwards;
+      transform: scaleX(0);
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: relative;
+      z-index: 1;
+      padding: 0 2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      opacity: 0;
+      animation: up .6s 1.4s var(--ease) forwards;
+    }
+    .scroll-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      position: relative;
+    }
+    .scroll-dot::after {
+      content: '';
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: pulse 2s 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)} 50%{opacity:.4;transform:translate(-50%,-50%) scale(1.5)} }
+    .hero-scroll p { font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(181,169,154,.6); }
+
+    @keyframes up { to { opacity:1; transform:translateY(0); } }
+    @keyframes expandH { to { transform:scaleX(1); } }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 2rem; }
+    .s-label {
+      font-size: .62rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 2.5rem;
+    }
+    .s-label::after { content:''; flex:1; max-width:40px; height:1px; background:var(--gold); opacity:.5; }
+
+    /* ── WORK GRID ── */
+    #work { background: var(--parchment); }
+    .work-header { margin-bottom: 3rem; }
+    .work-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1.05;
+    }
+    .work-header h2 em { font-style: italic; color: var(--stone); }
+
+    /* Mobile: single-column vertical feed */
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3px;
+    }
+    .work-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--stone);
+    }
+    /* Aspect ratios create rhythm in the vertical feed */
+    .work-item:nth-child(1) { aspect-ratio: 4/5; }
+    .work-item:nth-child(2) { aspect-ratio: 16/9; }
+    .work-item:nth-child(3) { aspect-ratio: 1/1; }
+    .work-item:nth-child(4) { aspect-ratio: 4/5; }
+    .work-item:nth-child(5) { aspect-ratio: 16/9; }
+    .work-item:nth-child(6) { aspect-ratio: 4/5; }
+    .work-item:nth-child(7) { aspect-ratio: 16/9; }
+    .work-item:nth-child(8) { aspect-ratio: 1/1; }
+    .work-item:nth-child(9) { aspect-ratio: 4/3; }
+
+    .work-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .9s var(--ease);
+      will-change: transform;
+      /* Blur-up: starts blurred, sharpens on load */
+      filter: blur(0px);
+    }
+    .work-item img.loading { filter: blur(8px); transform: scale(1.03); }
+    .work-item:hover img { transform: scale(1.05); }
+
+    /* Placeholder shimmer */
+    .work-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, var(--parchment) 0%, var(--stone) 50%, var(--parchment) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+      z-index: 0;
+    }
+    .work-item img { position: relative; z-index: 1; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Caption overlay */
+    .work-caption {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(26,26,24,.8) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+    .work-item:hover .work-caption { opacity: 1; }
+    .work-caption h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    .work-caption p {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-top: .3rem;
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      background: var(--forest);
+      padding: 1rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marquee 28s linear infinite;
+      will-change: transform;
+    }
+    .marquee-track span {
+      font-size: .65rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--stone);
+      flex-shrink: 0;
+    }
+    .marquee-track .dot { color: var(--gold); }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    .about-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 7vw, 3.8rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+    .about-text p { font-size: .9rem; color: var(--obsidian); opacity: .8; margin-bottom: 1.25rem; max-width: 50ch; }
+    .pull-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 4vw, 1.75rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1.4;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(181,169,154,.3);
+    }
+    .stat-n {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--forest);
+      line-height: 1;
+    }
+    .stat-l {
+      font-size: .58rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-top: .4rem;
+    }
+    .about-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .about-img-main {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+      background: var(--stone);
+    }
+    .about-img-main img { width:100%; height:100%; object-fit:cover; }
+
+    .about-img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+    .about-img-pair .img-thumb {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: var(--stone);
+      position: relative;
+    }
+    .about-img-pair .img-thumb img { width:100%; height:100%; object-fit:cover; }
+
+    /* ── PROCESS ── */
+    #process { background: var(--forest); }
+    #process .s-label { color: rgba(181,169,154,.6); }
+    #process .s-label::after { background: var(--stone); }
+    .process-h {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 7vw, 3.8rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 3.5rem;
+    }
+    .process-steps { display: grid; grid-template-columns: 1fr; gap: 0; }
+    .p-step {
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(181,169,154,.15);
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 1.5rem;
+    }
+    .p-num { font-family: var(--font-serif); font-size: .75rem; color: var(--gold); padding-top: .3rem; font-style: italic; }
+    .p-title { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 300; color: var(--cream); margin-bottom: .6rem; }
+    .p-desc { font-size: .82rem; color: var(--stone); line-height: 1.75; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); }
+    .contact-big {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 11vw, 7.5rem);
+      font-weight: 300;
+      color: var(--forest);
+      line-height: .95;
+      margin-bottom: 3rem;
+    }
+    .contact-big em { font-style: italic; color: var(--stone); display: block; }
+    .contact-email {
+      display: inline-block;
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 3.5vw, 1.6rem);
+      color: var(--gold);
+      border-bottom: 1px solid currentColor;
+      padding-bottom: .2rem;
+      transition: opacity .2s;
+    }
+    .contact-email:hover { opacity: .65; }
+    .contact-meta {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(181,169,154,.3);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .contact-meta p { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--obsidian);
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(181,169,154,.4); }
+
+    /* ── CASE STUDY (inside Work) ── */
+    .case-study {
+      margin-top: 3px;
+      background: var(--obsidian);
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .case-study-image {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+    .case-study-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(.75);
+      transition: transform .9s var(--ease);
+    }
+    .case-study:hover .case-study-image img { transform: scale(1.04); }
+    .case-study-body {
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .case-study-kicker {
+      font-size: .6rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .case-study-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+    .case-study-desc {
+      font-size: .85rem;
+      color: var(--stone);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 46ch;
+    }
+    .case-study-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(181,169,154,.25);
+      padding: .8rem 1.5rem;
+      align-self: flex-start;
+      transition: border-color .3s, background .3s, color .3s;
+    }
+    .case-study-link span { transition: transform .3s var(--ease); }
+    .case-study-link:hover {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--obsidian);
+    }
+    .case-study-link:hover span { transform: translateX(4px); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .reveal[data-d="1"] { transition-delay: .1s; }
+    .reveal[data-d="2"] { transition-delay: .2s; }
+    .reveal[data-d="3"] { transition-delay: .3s; }
+
+    /* ── NAV PANELS (3-level) — mobile-first ── */
+    .nav-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 8rem 2rem 3rem;
+      transition: opacity .4s var(--ease), transform .4s var(--ease);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    /* Sub-panels slide in from the right */
+    .nav-panel--right {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(32px);
+    }
+    .nav-panel--right.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    /* Hide main panel when a sub-panel is open */
+    #navMain.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-24px);
+    }
+
+    .nav-arrow {
+      font-size: .6em;
+      opacity: .45;
+      margin-left: .35rem;
+      display: inline-block;
+      transition: transform .3s var(--ease), opacity .2s;
+    }
+    .nav-links a:hover .nav-arrow { transform: translateX(5px); opacity: 1; }
+
+    /* Panel header row */
+    .nav-panel-head {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(181,169,154,.15);
+      flex-shrink: 0;
+    }
+    .nav-back {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      transition: color .2s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .nav-back:hover { color: var(--cream); }
+    .nav-panel-title {
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Project list */
+    .project-list {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      flex-shrink: 0;
+    }
+    .project-list-item {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 2rem 1fr auto;
+      align-items: center;
+      gap: .75rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(181,169,154,.1);
+      text-align: left;
+      transition: border-color .2s;
+      cursor: pointer;
+      /* Fix mobile blue highlight freeze */
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .project-list-item:hover,
+    .project-list-item:focus-visible { border-color: rgba(181,169,154,.3); }
+    .pl-num {
+      font-family: var(--font-serif);
+      font-size: .72rem;
+      font-style: italic;
+      color: var(--gold);
+    }
+    .pl-name {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 3.5vw, 1.6rem);
+      font-weight: 300;
+      color: var(--cream);
+      transition: color .2s;
+    }
+    .project-list-item:hover .pl-name,
+    .project-list-item:focus-visible .pl-name { color: var(--gold); }
+    .pl-meta {
+      font-size: .58rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--stone);
+      display: none;
+    }
+    .pl-arrow {
+      font-size: .8rem;
+      color: var(--gold);
+    }
+
+    /* Project meta row */
+    .project-meta-row { margin-bottom: 1rem; flex-shrink: 0; }
+    .project-panel-meta {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+    .project-panel-desc {
+      font-size: .82rem;
+      color: rgba(181,169,154,.75);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      flex-shrink: 0;
+      max-width: 55ch;
+    }
+
+    /* Project gallery — 2-col mobile */
+    .project-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+    .gallery-img {
+      overflow: hidden;
+      background: rgba(26,26,24,.6);
+      position: relative;
+    }
+    .gallery-img:nth-child(1) { aspect-ratio: 4/5; }
+    .gallery-img:nth-child(2) { aspect-ratio: 4/5; }
+    .gallery-img:nth-child(3) { grid-column: 1/-1; aspect-ratio: 16/7; }
+    .gallery-img:nth-child(4) { aspect-ratio: 1/1; }
+    .gallery-img:nth-child(5) { aspect-ratio: 1/1; }
+
+    .gallery-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(.8);
+      transition: transform .8s var(--ease), filter .4s ease;
+    }
+    .gallery-img:hover img { transform: scale(1.05); filter: brightness(.95); }
+
+    .nav-work-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(155,140,106,.3);
+      padding-bottom: .2rem;
+      transition: color .2s, border-color .2s;
+      flex-shrink: 0;
+      margin-top: auto;
+      padding-top: 2rem;
+    }
+    .nav-work-cta:hover { color: var(--cream); border-color: rgba(245,240,232,.4); }
+
+    /* ── DESKTOP BREAKPOINTS ── */
+    @media (min-width: 768px) {
+      section { padding: 8rem 4rem; }
+      .site-header { padding: 2rem 4rem; }
+      .hero-body { padding: 4rem 4rem 5rem; }
+      .hero-scroll { padding: 0 4rem 2.5rem; }
+      .nav-overlay { padding: 0; }
+      .nav-panel { padding: 6rem 4rem 3rem; }
+      .nav-panel--right { padding-top: 5.5rem; }
+      .pl-meta { display: block; }
+      .project-list-item { grid-template-columns: 2.5rem 1fr auto auto; gap: 1.25rem; }
+      .project-gallery { grid-template-columns: repeat(3, 1fr); }
+      .gallery-img:nth-child(1) { aspect-ratio: 3/4; }
+      .gallery-img:nth-child(2) { aspect-ratio: 3/4; }
+      .gallery-img:nth-child(3) { grid-column: 3; grid-row: 1/3; aspect-ratio: unset; }
+      .gallery-img:nth-child(4) { aspect-ratio: 4/3; }
+      .gallery-img:nth-child(5) { aspect-ratio: 4/3; }
+      footer { padding: 2rem 4rem; }
+
+      /* Desktop work grid — editorial asymmetric */
+      .work-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 3px;
+      }
+      .work-item { aspect-ratio: unset; }
+      .work-item:nth-child(1) { grid-column: 1/8;  height: 580px; }
+      .work-item:nth-child(2) { grid-column: 8/13; height: 288px; }
+      .work-item:nth-child(3) { grid-column: 8/13; height: 288px; }
+      .work-item:nth-child(4) { grid-column: 1/5;  height: 420px; }
+      .work-item:nth-child(5) { grid-column: 5/9;  height: 420px; }
+      .work-item:nth-child(6) { grid-column: 9/13; height: 843px; }
+      .work-item:nth-child(7) { grid-column: 1/5;  height: 420px; }
+      .work-item:nth-child(8) { grid-column: 5/9;  height: 420px; }
+      .work-item:nth-child(9) { grid-column: 1/9;  height: 360px; }
+
+      .about-grid { grid-template-columns: 55% 1fr; gap: 5rem; align-items: start; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .case-study { grid-template-columns: 1fr 1fr; }
+      .case-study-image { aspect-ratio: unset; min-height: 500px; }
+      .case-study-body { padding: 5rem 4rem; }
+      .contact-meta { flex-direction: row; justify-content: space-between; }
+    }
+
+    @media (min-width: 1100px) {
+      .process-steps { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    /* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(26,26,24,.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s var(--ease), visibility .4s;
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  transform: scale(0.96);
+  transition: transform .45s var(--ease);
+  display: block;
+}
+.lightbox.open .lightbox-img {
+  transform: scale(1);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.75rem;
+  font-size: .65rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color .2s;
+}
+.lightbox-close:hover { color: var(--cream); }
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  padding: 1rem;
+  transition: color .2s;
+}
+.lightbox-prev:hover,
+.lightbox-next:hover { color: var(--cream); }
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+.lightbox-counter {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .6rem;
+  letter-spacing: .2em;
+  color: var(--stone);
+}
+  </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="#" class="logo" aria-label="Pearl & Teak Studio home">
+    Pearl <span class="amp">&</span> Teak
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navOverlay">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ── NAV OVERLAY ───────────────────────────────────────────── -->
+<div class="nav-overlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="Site navigation">
+
+  <!-- PANEL 1: Main menu -->
+  <div class="nav-panel" id="navMain">
+    <nav class="nav-links">
+      <a href="#" id="navWorkTrigger" aria-haspopup="true">Work <span class="nav-arrow">→</span></a>
+      <a href="#about"   onclick="closeNav()">Studio</a>
+      <a href="#process" onclick="closeNav()">Process</a>
+      <a href="#contact" onclick="closeNav()">Contact</a>
+    </nav>
+    <div class="nav-bottom">
+      <p>Nairobi, Kenya</p>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;">
+        <a href="mailto:hello@pearlandteak.co.ke">hello@pearlandteak.co.ke</a>
+        <br>
+        <br>
+        <a href="tel:+254721567425">call</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Project list -->
+  <div class="nav-panel nav-panel--right" id="navWorkPanel" aria-hidden="true">
+    <div class="nav-panel-head">
+      <button class="nav-back" data-target="navMain" aria-label="Back to menu">← Menu</button>
+      <span class="nav-panel-title">Selected Work</span>
+    </div>
+    <ul class="project-list">
+      <li><button class="project-list-item" data-project="karura">
+        <span class="pl-num">01</span>
+        <span class="pl-name">The Bishop's House </span>
+        <span class="pl-meta">Musanze, Rwanda · 2024</span>
+        <span class="pl-arrow">→</span>
+      </button></li>
+      <li><button class="project-list-item" data-project="westlands">
+        <span class="pl-num">02</span>
+        <span class="pl-name">Ohana Hotel</span>
+        <span class="pl-meta">Kigali · 2025 - Ongoing</span>
+        <span class="pl-arrow">→</span>
+      </button></li>
+      <li><button class="project-list-item" data-project="karen">
+        <span class="pl-num">03</span>
+        <span class="pl-name">Sarova Mara</span>
+        <span class="pl-meta">Mara, Kenya · 2023</span>
+        <span class="pl-arrow">→</span>
+      </button></li>
+      <li><button class="project-list-item" data-project="muthaiga">
+        <span class="pl-num">04</span>
+        <span class="pl-name">Residentials</span>
+        <span class="pl-meta">East Africa · Since 2022</span>
+        <span class="pl-arrow">→</span>
+      </button></li>
+    </ul>
+    <a href="mailto:hello@pearlandteak.co.ke" class="nav-work-cta">Enquire about a project →</a>
+  </div>
+
+  <!-- PANEL 3: Individual project gallery -->
+  <div class="nav-panel nav-panel--right" id="navProjectPanel" aria-hidden="true">
+    <div class="nav-panel-head">
+      <button class="nav-back" data-target="navWorkPanel" aria-label="Back to projects">← Work</button>
+      <span class="nav-panel-title" id="projectPanelTitle"></span>
+    </div>
+    <div class="project-meta-row">
+      <span id="projectPanelMeta" class="project-panel-meta"></span>
+    </div>
+    <p id="projectPanelDesc" class="project-panel-desc"></p>
+    <div class="project-gallery" id="projectGallery">
+      <!-- injected by JS -->
+    </div>
+    <a href="mailto:hello@pearlandteak.co.ke" class="nav-work-cta" style="margin-top:2rem">Enquire about this project →</a>
+  </div>
+
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg">
+    <div class="hero-orb" aria-hidden="true"></div>
+  </div>
+  <div class="hero-body">
+    <p class="hero-eyebrow">Pearl &amp; Teak Studio · Nairobi</p>
+    <h1 class="hero-title">
+      Interiors
+      <span class="line2">of Stillness</span>
+    </h1>
+    <p class="hero-cta">
+      <span></span>
+      Enduring elegance, Heirloom design
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-dot" aria-hidden="true"></div>
+    <p>Scroll to explore</p>
+  </div>
+</section>
+
+<!-- ── MARQUEE ───────────────────────────────────────────────── -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Interior Design</span><span class="dot">·</span>
+    <span>Space Planning</span><span class="dot">·</span>
+    <span>FF&amp;E Procurement</span><span class="dot">·</span>
+    <span>Afro-Minimalist</span><span class="dot">·</span>
+    <span>Nairobi Kenya</span><span class="dot">·</span>
+    <span>Luxury Residential</span><span class="dot">·</span>
+    <span>Bespoke Joinery</span><span class="dot">·</span>
+    <span>East African Craft</span><span class="dot">·</span>
+    <!-- Duplicate for seamless loop -->
+    <span>Interior Design</span><span class="dot">·</span>
+    <span>Space Planning</span><span class="dot">·</span>
+    <span>FF&amp;E Procurement</span><span class="dot">·</span>
+    <span>Afro-Minimalist</span><span class="dot">·</span>
+    <span>Nairobi Kenya</span><span class="dot">·</span>
+    <span>Luxury Residential</span><span class="dot">·</span>
+    <span>Bespoke Joinery</span><span class="dot">·</span>
+    <span>East African Craft</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ──────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="s-label">The Studio</div>
+      <h2>We design the feeling before<br>we design the room.</h2>
+      <p>Pearl &amp; Teak Studio was founded on a conviction rooted in East African craft: that a beautifully designed home is not a luxury reserved for the few — it is a form of self-expression, a declaration of how one chooses to inhabit the world.</p>
+      <p>Born and practising in Nairobi, we create spaces of quiet distinction. Our aesthetic draws from the Afro-minimalist tradition — natural sisal, reclaimed hardwoods, hand-thrown ceramics, woven textiles, and a palette drawn from the ochres and sages of the East African landscape.</p>
+      <div class="pull-quote">We do not just design rooms. We compose environments that hold memory and grow more beautiful with time.</div>
+      <div class="about-stats">
+        <div>
+          <div class="stat-n">4+</div>
+          <div class="stat-l">Years Practice</div>
+        </div>
+        <div>
+          <div class="stat-n">20+</div>
+          <div class="stat-l">Projects Completed</div>
+        </div>
+        <div>
+          <div class="stat-n">5+</div>
+          <div class="stat-l">Countries</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual reveal" data-d="2">
+      <div class="about-img-main">
+        <img
+          src="The Bishops House 001.jpg?&auto=format&fit=crop&q=80"
+          alt="Principal designer at work"
+          loading="lazy"
+          width="700" height="933"
+        >
+      </div>
+      <div class="about-img-pair">
+        <div class="img-thumb">
+          <img
+            src="The Bishops House 002.jpeg?w=400&auto=format&fit=crop&q=75"
+            alt="Material palette detail"
+            loading="lazy"
+            width="400" height="400"
+          >
+        </div>
+        <div class="img-thumb">
+          <img
+            src="Kawanjiku 001.jpg?w=400&auto=format&fit=crop&q=75"
+            alt="Bespoke furniture detail"
+            loading="lazy"
+            width="400" height="400"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ────────────────────────────────────────────────── -->
+<section id="process">
+  <div class="s-label reveal">How We Work</div>
+  <h2 class="process-h reveal">A process built<br>on deep listening.</h2>
+  <div class="process-steps">
+    <div class="p-step reveal">
+      <div class="p-num">01</div>
+      <div>
+        <h3 class="p-title">Discovery</h3>
+        <p class="p-desc">We begin with an extended conversation — your rituals, aspirations, the way you move through your day. The brief we write together becomes the foundation every decision is built on.</p>
+      </div>
+    </div>
+    <div class="p-step reveal" data-d="1">
+      <div class="p-num">02</div>
+      <div>
+        <h3 class="p-title">Concept</h3>
+        <p class="p-desc">Two distinct concept directions — spatial plans, material boards, atmospheric imagery — presented for your review. We commit fully to one and develop it to near-completion before any procurement begins.</p>
+      </div>
+    </div>
+    <div class="p-step reveal" data-d="2">
+      <div class="p-num">03</div>
+      <div>
+        <h3 class="p-title">Execution</h3>
+        <p class="p-desc">We manage every supplier, artisan, and contractor on your behalf. Weekly site visits. No surprises. Every purchase is receipted and reported. Your budget is treated as a boundary, not a suggestion.</p>
+      </div>
+    </div>
+    <div class="p-step reveal" data-d="3">
+      <div class="p-num">04</div>
+      <div>
+        <h3 class="p-title">Handover</h3>
+        <p class="p-desc">A final styling session, snag-list resolution, and handover pack. We photograph the completed space and are available for six months post-handover — because truly good design is a relationship, not a transaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="s-label reveal">Begin a Conversation</div>
+  <h2 class="contact-big reveal">
+    Let's work
+    <em>together.</em>
+  </h2>
+  <a href="mailto:hello@pearlandteak.co.ke" class="contact-email reveal" data-d="1">
+    hello@pearlandteak.co.ke
+  </a>
+  <a href="tel:+254721567425" class="contact-email reveal" data-d="2" style="margin-top:.75rem; display:inline-block;">
+    Reach via Call
+  </a>
+  <div class="contact-meta reveal" data-d="3">
+    <p>Nairobi, Kenya</p>
+    <p>By appointment only</p>
+    <p>Residential · Hospitality · East Africa</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Pearl &amp; Teak Studio Ltd. Nairobi, Kenya.</p>
+  <p>All Rights Reserved</p>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lbClose" aria-label="Close">✕ Close</button>
+  <button class="lightbox-prev" id="lbPrev" aria-label="Previous">← Prev</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lightbox-next" id="lbNext" aria-label="Next">Next →</button>
+  <span class="lightbox-counter" id="lbCounter"></span>
+</div>
+
+<!-- ── JAVASCRIPT: runs after DOM ready ──────────────────────── -->
+<script>
+  /* ── CURSOR ── */
+  (function () {
+    const c = document.getElementById('cursor');
+    if (!c || !window.matchMedia('(pointer: fine)').matches) return;
+    let mx = -100, my = -100, cx = -100, cy = -100, raf;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.addEventListener('mousedown', () => c.style.transform = 'translate(-50%,-50%) scale(.7)');
+    document.addEventListener('mouseup',   () => c.style.transform = 'translate(-50%,-50%) scale(1)');
+
+    // Hover detection
+    document.querySelectorAll('a, button, .work-item').forEach(el => {
+      el.addEventListener('mouseenter', () => c.classList.add('hover'));
+      el.addEventListener('mouseleave', () => c.classList.remove('hover'));
+    });
+    // Dark sections
+    const darkSections = document.querySelectorAll('#process, #featured, footer, .nav-overlay');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) c.classList.add('dark');
+        else c.classList.remove('dark');
+      });
+    }, { threshold: 0.5 });
+    darkSections.forEach(s => io.observe(s));
+
+    function loop() {
+      cx += (mx - cx) * 0.12;
+      cy += (my - cy) * 0.12;
+      c.style.left = cx + 'px';
+      c.style.top  = cy + 'px';
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  /* ── HEADER LIGHT / DARK DETECTION ── */
+  (function () {
+    const header = document.querySelector('.site-header');
+    function updateHeader() {
+      const y = window.scrollY + 80;
+      const about = document.getElementById('about');
+      const proc  = document.getElementById('process');
+      const cont  = document.getElementById('contact');
+      const isLight =
+        (about && y >= about.offsetTop && (!proc || y < proc.offsetTop)) ||
+        (cont  && y >= cont.offsetTop);
+      header.classList.toggle('light', !!isLight);
+    }
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+  })();
+
+  /* ── NAV: THREE-PANEL SYSTEM ── */
+  const PROJECTS = {
+    karura: {
+      name: 'The Bishops House',
+      meta: 'Musanze · Hotel Hospitality · 2024',
+      description: 'A heritage house perched in the volcanic highlands of Musanze, Rwanda, reimagined as a boutique retreat. We retained the original stone façade and timber ceiling joinery, layering in hand-loomed Rwandan textiles, bespoke rattan furniture, and a palette of terracotta, ivory, and deep sage drawn from the surrounding hills. Guest suites, a communal lounge, and a dining room delivered across a four-month programme. We used local artisans, the beautiful volcanic stone as cladding, and local textures to ground the building and give it a sense of belonging and identity.',
+      images: [
+        { src: 'The Bishops House 001.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Exteriors 01' },
+        { src: 'The Bishops House 010 Exterior 01.jpeg?w=800&auto=format&fit=crop&q=75', alt: 'Exteriors 02' },
+        { src: 'The Bishops House 012 Bedroom 05.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Exteriors 03' },
+        { src: 'The Bishops House 004 Lounge 01.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge 01' },
+        { src: 'The Bishops House 006 Lounge 02.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge 02' },
+        { src: 'The Bishops House 008 Lounge 03.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge 03' },
+        { src: 'The Bishops House 009 Lounge 04.jpeg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge 04' },
+        { src: 'The Bishops House 003 Bedroom 01.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom 01' },
+        { src: 'The Bishops House 005 Bedroom 02.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom 02' },
+        { src: 'The Bishops House 007 Bedroom 03.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom 03' },
+        { src: 'The Bishops House 011 Bedroom 04.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom 04' },
+      ]
+    },
+    westlands: {
+      name: 'Ohana Hotel',
+      meta: 'Kigali · Hotel Hospitality · 2025–2026',
+      description: 'A full interior design commission for a boutique hotel in Kigali\'s Nyarutama neighbourhood, spanning the 2 top most floors of an apartment complex, currently under execution. The concept centres on generous, unhurried hospitality — communal spaces that feel like a well-curated home rather than a corporate hotel. Each room category carries a distinct material story. Public areas include a whisky lounge, dining area, massage room, and a roof terrace. Scope: full concept, FF&E specification and procurement, site supervision. Anticipated completion: Q2 2026.',
+      images: [
+        { src: 'OhanaBed01.png?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'OhanaBed02.png?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'OhanaBed03.png?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'OhanaBed04.png?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'OhanaDining01.png?w=800&auto=format&fit=crop&q=75', alt: 'Dining room' },
+        { src: 'OhanaDining02.png?w=800&auto=format&fit=crop&q=75', alt: 'Dining room' },
+        { src: 'OhanaWhiskey01.png?w=800&auto=format&fit=crop&q=75', alt: 'Whiskey lounge' },
+        { src: 'OhanaBar01.png?w=800&auto=format&fit=crop&q=75', alt: 'Bar' },
+        { src: 'OhanaBar02.png?w=800&auto=format&fit=crop&q=75', alt: 'Bar' },
+      ]
+    },
+    karen: {
+      name: 'Sarova Mara',
+      meta: 'Mara · Lodge Renovation · 2023',
+      description: 'A renovation of select guest tents and public areas at the Sarova Mara Game Camp, Kenya\'s Masai Mara. The brief was to elevate the lodge experience while staying true to its East African wilderness character — no pastiche safari clichés, but a considered, contemporary expression of place. We introduced hand-stitched leather, reclaimed timber flooring, bronze hardware, and a warm neutral palette punctuated by the deep ochres of the surrounding savannah. Eleven tent interiors and the main lounge were completed within a six-week closed season.',
+      images: [
+        { src: 'Mara01.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Tent interior' },
+        { src: 'Mara02.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Tent interior' },
+        { src: 'Mara03.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Tent interior' },
+        { src: 'Mara04.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Detail' },
+        { src: 'Mara05.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Detail' },
+        { src: 'Mara06.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge' },
+        { src: 'Mara07.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge' },
+        { src: 'Mara08.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Lounge' },
+        { src: 'Mara09.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Exterior' },
+        { src: 'Mara10.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Exterior' },
+        { src: 'Mara11.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Exterior' },
+      ]
+    },
+    muthaiga: {
+      name: 'Various Residentials',
+      meta: 'East Africa · Residential · Since 2022',
+      description: 'A body of residential work spanning private homes in Nairobi, Kampala, and Kigali. Each project began with a deep listening brief — understanding how the family actually lives, not just how they imagine they do. Recurring themes across this portfolio: integrating local craft into contemporary interiors, designing for multi-generational households, sourcing furniture from African makers, and finishes from all over the world. Typologies include primary suites, open-plan living and dining, children\'s rooms, and home offices. Project scales range from single-room renovations to full-house fit-outs.',
+      images: [
+        { src: 'Various01.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Living room' },
+        { src: 'Various02.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Living room' },
+        { src: 'Various03.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'Various04.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Bedroom' },
+        { src: 'Various05.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Detail' },
+        { src: 'Various06.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Detail' },
+        { src: 'Various07.jpg?w=800&auto=format&fit=crop&q=75', alt: 'Kitchen' },
+      ]
+    }
+  };
+
+  const hamburger       = document.getElementById('hamburger');
+  const navOverlay      = document.getElementById('navOverlay');
+  const navMain         = document.getElementById('navMain');
+  const navWorkPanel    = document.getElementById('navWorkPanel');
+  const navProjectPanel = document.getElementById('navProjectPanel');
+  const navWorkTrigger  = document.getElementById('navWorkTrigger');
+  const projectGallery  = document.getElementById('projectGallery');
+  const projectTitle    = document.getElementById('projectPanelTitle');
+  const projectMeta     = document.getElementById('projectPanelMeta');
+  const projectDesc     = document.getElementById('projectPanelDesc');
+  let navOpen = false;
+
+  function showPanel(panel) {
+    [navMain, navWorkPanel, navProjectPanel].forEach(p => {
+      p.classList.remove('active', 'hidden');
+      if (p.classList.contains('nav-panel--right')) {
+        p.setAttribute('aria-hidden', 'true');
+      }
+    });
+    if (panel === navMain) {
+      // all others slide away, main is visible by default
+    } else {
+      navMain.classList.add('hidden');
+      panel.classList.add('active');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.scrollTop = 0;
+    }
+  }
+
+  function openNav() {
+    navOpen = true;
+    hamburger.classList.add('open');
+    navOverlay.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    showPanel(navMain);
+  }
+  function closeNav() {
+    navOpen = false;
+    hamburger.classList.remove('open');
+    navOverlay.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  window.closeNav = closeNav;
+
+  function openProject(id) {
+    const p = PROJECTS[id];
+    if (!p) return;
+    projectTitle.textContent = p.name;
+    projectMeta.textContent  = p.meta;
+    if (projectDesc) projectDesc.textContent = p.description || '';
+    projectGallery.innerHTML = p.images.map(img =>
+      `<div class="gallery-img"><img src="${img.src}" alt="${img.alt}" loading="lazy"></div>`
+    ).join('');
+    showPanel(navProjectPanel);
+  }
+
+  hamburger.addEventListener('click', () => navOpen ? closeNav() : openNav());
+  navWorkTrigger.addEventListener('click', e => { e.preventDefault(); showPanel(navWorkPanel); });
+
+  // Back buttons (data-target attribute drives destination)
+  document.querySelectorAll('.nav-back').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      if (target === 'navMain') showPanel(navMain);
+      else if (target === 'navWorkPanel') showPanel(navWorkPanel);
+    });
+  });
+
+  // Project list items
+  document.querySelectorAll('.project-list-item').forEach(btn => {
+    btn.addEventListener('click', () => openProject(btn.dataset.project));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (navProjectPanel.classList.contains('active')) showPanel(navWorkPanel);
+    else if (navWorkPanel.classList.contains('active')) showPanel(navMain);
+    else if (navOpen) closeNav();
+  });
+
+  /* ── SCROLL REVEAL ── */
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  })();
+
+  /* ── LAZY IMAGE BLUR-UP ── */
+  // Images start with loading class (blurred), remove it once loaded
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    img.classList.add('loading');
+    if (img.complete) img.classList.remove('loading');
+    else img.addEventListener('load', () => img.classList.remove('loading'), { once: true });
+  });
+  /* ── LIGHTBOX ── */
+(function () {
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose   = document.getElementById('lbClose');
+  const lbPrev    = document.getElementById('lbPrev');
+  const lbNext    = document.getElementById('lbNext');
+
+  let images = [];  // current project's image array
+  let current = 0;
+
+  function openLightbox(imgs, startIndex) {
+    images  = imgs;
+    current = startIndex;
+    show();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function show() {
+    lbImg.src       = images[current].src.replace('w=800', 'w=1800');
+    lbImg.alt       = images[current].alt;
+    lbCounter.textContent = `${current + 1} / ${images.length}`;
+    lbPrev.style.opacity = current === 0 ? '0.25' : '1';
+    lbNext.style.opacity = current === images.length - 1 ? '0.25' : '1';
+  }
+
+  function prev() { if (current > 0) { current--; show(); } }
+  function next() { if (current < images.length - 1) { current++; show(); } }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'Escape')     closeLightbox();
+  });
+
+  // Hook into gallery — runs after openProject() injects images into the DOM
+  // We override openProject to attach click listeners each time it's called
+  const _openProject = window._openProjectRef;
+  document.getElementById('navProjectPanel').addEventListener('click', e => {
+    const img = e.target.closest('.gallery-img');
+    if (!img) return;
+    const allImgs = [...document.querySelectorAll('#projectGallery .gallery-img img')];
+    const clickedIndex = allImgs.indexOf(img.querySelector('img') || e.target);
+    // Build image list from current PROJECTS data via the panel title
+    const projectKey = Object.keys(PROJECTS).find(k =>
+      PROJECTS[k].name === document.getElementById('projectPanelTitle').textContent
+    );
+    if (!projectKey) return;
+    openLightbox(PROJECTS[projectKey].images, clickedIndex >= 0 ? clickedIndex : 0);
+  });
+})();
+</script>
+</body>
+</html>
